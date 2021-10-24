@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dmsys.demo.dao.form_mapper">
+    <insert id="insertform">
+        insert into form
+        (title,html)
+        values
+        (#{title},#{html})
+    </insert>
+
+    <select id="getform" resultType="com.dmsys.demo.bean.Form">
+        select *
+        from form
+    </select>
+
+    <delete id="deleteform">
+        delete from form
+        where form_id=#{form_id}
+    </delete>
+</mapper>

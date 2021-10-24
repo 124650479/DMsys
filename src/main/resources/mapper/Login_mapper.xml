@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dmsys.demo.dao.user_mapper">
+    <resultMap id="userMapper" type="com.dmsys.demo.bean.User">
+        <id property="user_id" column="user_id"></id>
+        <result property="username" column="username"></result>
+        <result property="password" column="password"></result>
+        <result property="salt" column="salt"></result>
+        <result property="locked" column="locked"></result>
+        <result property="realname" column="realname"></result>
+        <collection property="role" ofType="com.dmsys.demo.bean.Role"
+                    select="getRoleByRole_id"
+                    column="role_id">
+        </collection>
+    </resultMap>
+    <select id="getRoleByRole_id" parameterType="Integer" resultType="com.dmsys.demo.bean.Role">
+        select * from roles where role_id = #{role_id};
+    </select>
+    <select id="getuserbyname" parameterType="String" resultMap="userMapper">
+        select * from users inner join user_role on user_id = ur_user_id inner join roles on role_id = ur_role_id where username = #{username}
+    </select>
+    <select id="getme" parameterType="String" resultType="com.dmsys.demo.bean.Admin">
+        select * from admin where adminID=#{username}
+    </select>
+</mapper>
